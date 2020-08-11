@@ -1,13 +1,34 @@
 <?php
+
 require_once 'vendor/autoload.php';
+use Illuminate\Database\Capsule\Manager as Capsule;
 use App\Models\Job;
-use App\Models\Project;
+use App\Models\Project as Project;
+
+$capsule = new Capsule;
+
+$capsule->addConnection([
+    'driver'    => 'mysql',
+    'host'      => 'localhost',
+    'database'  => 'cursophp',
+    'username'  => 'root',
+    'password'  => '',
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'prefix'    => '',
+]);
+
+// Make this Capsule instance available globally via static methods... (optional)
+$capsule->setAsGlobal();
+
+// Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
+$capsule->bootEloquent();
+
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -63,87 +84,17 @@ officia deserunt mollit anim id est laborum.
         <div>
           <h3 class="border-bottom-gray">Work Experience</h3>
           <ul>
-            <li class="work-position">
-              <h5>PHP Developer</h5>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing 
-elit. Nisi sapiente sed pariatur sint exercitationem eos expedita 
-eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet 
-doloremque ipsum itaque obcaecati nihil.</p>
-              <strong>Achievements:</strong>
-              <ul>
-                <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-              </ul>
-            </li>
-            <li class="work-position">
-                <h5>PHP Developer</h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing 
-elit. Nisi sapiente sed pariatur sint exercitationem eos expedita 
-eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet 
-doloremque ipsum itaque obcaecati nihil.</p>
-                <strong>Achievements:</strong>
-                <ul>
-                  <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                  <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                  <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                </ul>
-              </li>
-              <li class="work-position">
-                  <h5>PHP Developer</h5>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing 
-elit. Nisi sapiente sed pariatur sint exercitationem eos expedita 
-eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet 
-doloremque ipsum itaque obcaecati nihil.</p>
-                  <strong>Achievements:</strong>
-                  <ul>
-                    <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                    <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                    <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                  </ul>
-                </li>
-          </ul>
+          <?php
+            require_once 'jobs.php';
+          ?>
+          <ul>
+               
         </div>
         <div>
             <h3 class="border-bottom-gray">Projects</h3>
-            <div class="project">
-                <h5>Project X</h5>
-                <div class="row">
-                    <div class="col-3">
-                        <img id="profile-picture" src="index_files/a.png" alt="">
-                      </div>
-                      <div class="col">
-                        <p>Lorem ipsum dolor sit amet consectetur 
-adipisicing elit. Eius earum corporis at accusamus quisquam hic quos 
-vel? Tenetur, ullam veniam consequatur esse quod cum, quam cupiditate 
-assumenda natus maiores aperiam.</p>
-                        <strong>Technologies used:</strong>
-                        <span class="badge badge-secondary">PHP</span>
-                        <span class="badge badge-secondary">HTML</span>
-                        <span class="badge badge-secondary">CSS</span>
-                      </div>
-                </div>
-            </div>
-            <div class="project">
-                <h5>Project X</h5>
-                <div class="row">
-                    <div class="col-3">
-                        <img id="profile-picture" src="index_files/a.png" alt="">
-                      </div>
-                      <div class="col">
-                        <p>Lorem ipsum dolor sit amet consectetur 
-adipisicing elit. Eius earum corporis at accusamus quisquam hic quos 
-vel? Tenetur, ullam veniam consequatur esse quod cum, quam cupiditate 
-assumenda natus maiores aperiam.</p>
-                        <strong>Technologies used:</strong>
-                        <span class="badge badge-secondary">PHP</span>
-                        <span class="badge badge-secondary">HTML</span>
-                        <span class="badge badge-secondary">CSS</span>
-                      </div>
-                </div>
-            </div>
-          </div>
-      </div>
+
+            <?php require_once 'lib1/Projects.php'; ?>
+
       <div class="col-3">
         <h3 class="border-bottom-gray">Skills &amp; Tools</h3>
         <h4>Backend</h4>
@@ -169,7 +120,7 @@ assumenda natus maiores aperiam.</p>
     </div>
     <div id="resume-footer" class="row">
       <div class="col">
-          Designed by @eduerpj
+          Designed by @hectorbenitez
       </div>
     </div>
   </div>

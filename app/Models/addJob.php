@@ -22,6 +22,7 @@ $capsule->setAsGlobal();
 // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
 $capsule->bootEloquent();
 
+
 if (!empty($_POST)) {
     $job  = new Job();
     $job->title = $_POST['title'];

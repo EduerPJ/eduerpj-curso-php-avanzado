@@ -1,15 +1,29 @@
 <?php
 namespace App\Models;
 
-require_once '../../vendor/autoload.php';
+use App\Models\Job;
 
-use App\Models\Project;
-use App\Models\Printable;
+$jobs = Job::all();
 
+// $project1 = new Project('Project 1', 'Description 1');
 
-
-$job1->setMonths(16);
-
-$jobs = [
-  $job1
-];
+function printElement($job)
+{
+    if ($job->visible == false) {
+        return;
+    }
+}
+if ($jobs) {
+    foreach ($jobs as $job) {
+        echo '<li class="work-position">';
+        echo '<h5>' . $job->title . '</h5>';
+        echo '<p>' . $job->description . '</p>';
+        // echo '<p>' . $job->gerDurationAsString() . '</p>';
+        echo '<strong>Achievements:</strong>';
+        echo '<ul>';
+        echo '<li> Estoy destinado a ser exitoso en mi vida. Eduer </li>';
+        echo '<li> Estoy destinado a ser exitoso en mi vida. Eduer </li>';
+        echo '<li> Estoy destinado a ser exitoso en mi vida. Eduer </li>';
+        echo '</ul>';
+    }
+}
