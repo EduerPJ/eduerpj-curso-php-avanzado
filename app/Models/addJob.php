@@ -22,6 +22,10 @@ $capsule->setAsGlobal();
 // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
 $capsule->bootEloquent();
 
+$userValidator = v::attribute('name', v::stringType()->length(1, 32))
+                  ->attribute('birthdate', v::date()->minAge(18));
+
+$userValidator->validate($user); // true
 
 if (!empty($_POST)) {
     $job  = new Job();

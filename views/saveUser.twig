@@ -1,0 +1,14 @@
+{% extends "layout.twig" %} {% block content %}
+<h1>Welcome</h1>
+{% if responseMessage %}
+<div class="alert alert-success" role="alert">
+  {{ responseMessage }}
+</div>
+{% endif %}
+
+{% if error %}
+  {{ error }}
+{% endif %}
+
+
+{% endblock %}
