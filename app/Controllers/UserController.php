@@ -28,8 +28,6 @@ class UserController extends BaseController
                 $user = new User();
                 $user->email = $userData['email'];
                 $user->password = password_hash($userData['password'], PASSWORD_DEFAULT);
-                // var_dump($user);
-                // die;
                 $user->save();
 
                 if ($user->save()) {

@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 // Cargar todos los archivos
 require_once '../vendor/autoload.php';
-
+session_start();
 // Eloquent
 use Illuminate\Database\Capsule\Manager as Capsule;
 // Aura Router
@@ -53,24 +53,48 @@ $map->get('index', '/platzi_php/', [
 
 $map->get('addJobs', '/platzi_php/jobs/add', [
   'controller' => 'App\Controllers\JobsController',
-  'action' => 'getAddJobAction'
+  'action' => 'getAddJobAction',
+  'auth' => true
 ]);
 
 $map->post('saveJobs', '/platzi_php/jobs/add', [
   'controller' => 'App\Controllers\JobsController',
-  'action' => 'getAddJobAction'
+  'action' => 'getAddJobAction',
+  'auth' => true
 ]);
 
 $map->get('addUser', '/platzi_php/user/create', [
   'controller' => 'App\Controllers\UserController',
-  'action' => 'create'
+  'action' => 'create',
+  'auth' => true
 ]);
 
 $map->post('saveUser', '/platzi_php/user/save', [
   'controller' => 'App\Controllers\UserController',
-  'action' => 'save'
+  'action' => 'save',
+  'auth' => true
 ]);
 
+$map->get('login', '/platzi_php/login', [
+  'controller' => 'App\Controllers\AuthController',
+  'action' => 'getLogin'
+]);
+
+$map->get('logout', '/platzi_php/logout', [
+  'controller' => 'App\Controllers\AuthController',
+  'action' => 'getLogout'
+]);
+
+$map->post('auth', '/platzi_php/auth', [
+  'controller' => 'App\Controllers\AuthController',
+  'action' => 'postLogin'
+]);
+
+$map->get('admin', '/platzi_php/admin', [
+  'controller' => 'App\Controllers\AdminController',
+  'action' => 'getIndex',
+  'auth' => true
+]);
 
 
 // Verificamos si existe o no una ruta
@@ -85,9 +109,25 @@ if (!$route) {
     $handlerData = $route->handler;
     $controllerName = $handlerData['controller'];
     $actionName = $handlerData['action'];
+    $needsAuth = $handlerData['auth'] ?? false;
+
+    $sessionUserId = $_SESSION['userId'] ?? false;
+
+    if ($needsAuth && !$sessionUserId) {
+        echo 'Protected route';
+        die;
+    }
+    
     $controller = new $controllerName;
     $response = $controller->$actionName($request);
 }
+    foreach ($response->getHeaders() as $name => $values) {
+        foreach ($values as $value) {
+            header(sprintf('%s: %s', $name, $value), false);
+        }
+    }
+    
+    http_response_code($response->getStatusCode());
     echo $response->getBody();
 
 // Ver URL
