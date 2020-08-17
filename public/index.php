@@ -20,10 +20,10 @@ $capsule = new Capsule;
 
 $capsule->addConnection([
     'driver'    => 'pgsql',
-    'host'      => 'ec2-35-169-254-43.compute-1.amazonaws.com',
-    'database'  => 'd7gabjlnd92pf7',
-    'username'  => 'igxotsooebalvm',
-    'password'  => '6b3e7ae244faeb9ff6b31182af05bf557daf0950a1ec684c86583a4ff88838f3',
+    'host'      => 'ec2-184-73-249-9.compute-1.amazonaws.com',
+    'database'  => 'dg3a21garbmn9',
+    'username'  => 'cxggvaxsyjutam',
+    'password'  => '73417a3bcc0dc0b015f90b8862daacc0e21ba3381a3d223438a3b0d2db38ad13',
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix'    => '',
